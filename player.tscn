@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://cp23fhb4v3gty"]
+
+[ext_resource type="Script" uid="uid://jbvm6ienijia" path="res://objects/player.gd" id="1_b0mj7"]
+[ext_resource type="Texture2D" uid="uid://wxbi5csf30u7" path="res://sprites/player.png" id="1_xo8fu"]
+[ext_resource type="AudioStream" uid="uid://d0gdg47rnspx1" path="res://audio/sfx/vent_hit.ogg" id="3_7fhh8"]
+[ext_resource type="AudioStream" uid="uid://c1gqsmlautaac" path="res://audio/sfx/step1.ogg" id="3_kmt07"]
+[ext_resource type="Texture2D" uid="uid://cewkbfgifr2hi" path="res://sprites/player_smash_vase.png" id="3_ksaxq"]
+[ext_resource type="AudioStream" uid="uid://b3x2adjd3uqug" path="res://audio/sfx/player_land.ogg" id="4_pk6tb"]
+[ext_resource type="AudioStream" uid="uid://ccqmyhp27kxjp" path="res://audio/sfx/player_roll.ogg" id="4_u2kjq"]
+[ext_resource type="AudioStream" uid="uid://bc64204gth6tu" path="res://audio/sfx/vase_smash.ogg" id="8_6xrgm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdula"]
+size = Vector2(12, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t61bm"]
+size = Vector2(12, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e00du"]
+size = Vector2(12, 12)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_b0mj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -18)
+texture = ExtResource("1_xo8fu")
+hframes = 14
+vframes = 8
+
+[node name="Sprite2D_SmashVase" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -42)
+texture = ExtResource("3_ksaxq")
+hframes = 10
+vframes = 3
+
+[node name="Area2D_Interact" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D_Interact"]
+visible = false
+shape = SubResource("RectangleShape2D_hdula")
+
+[node name="CollisionShape2D_Standing" type="CollisionShape2D" parent="."]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_t61bm")
+
+[node name="CollisionShape2D_Crouched" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_e00du")
+
+[node name="Audio_Step" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kmt07")
+max_distance = 640.0
+bus = &"sfx"
+
+[node name="Audio_Roll" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_u2kjq")
+max_distance = 640.0
+bus = &"sfx"
+
+[node name="Audio_Land" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pk6tb")
+max_distance = 640.0
+bus = &"sfx"
+
+[node name="Audio_VentHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7fhh8")
+max_distance = 640.0
+bus = &"sfx"
+
+[node name="Audio_VaseSmash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_6xrgm")
+max_distance = 640.0
+bus = &"sfx"
